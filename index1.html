@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Révision PHP : Tableaux Associatifs et Traitement des Formulaires</title>
+</head>
+<body>
+    <!-- Exercice 1 -->
+    <h1>Informations de l'étudiant</h1>
+    <ul>
+        <li>Nom : <?= $etudiant['nom'] ?></li>
+        <li>Prénom : <?= $etudiant['prenom'] ?></li>
+        <li>Matricule : <?= $etudiant['matricule'] ?></li>
+    </ul>
+
+    <!-- Exercice 2 -->
+    <h1>Note de l'étudiant</h1>
+    <p>Note actuelle : <?= $etudiant['note'] ?></p>
+
+    <!-- Exercice 3 -->
+    <h1>Liste des produits</h1>
+    <ul>
+        <?php foreach ($produits as $produit): ?>
+            <li><?= $produit['nom'] ?> - <?= $produit['prix'] ?> €</li>
+        <?php endforeach; ?>
+    </ul>
+
+    <!-- Exercice 4 -->
+    <h1>Moyenne des notes</h1>
+    <p>La moyenne des étudiants est de : <?= $moyenne ?></p>
+
+    <!-- Exercice 5 -->
+    <h1>Capitale des pays</h1>
+    <ul>
+        <?php foreach ($pays as $nom_pays => $capitale): ?>
+            <li>La capitale de <?= $nom_pays ?> est <?= $capitale ?>.</li>
+        <?php endforeach; ?>
+    </ul>
+
+    <!-- Exercice 6 -->
+    <h1>Importer un fichier CSV</h1>
+    <form method="post" action="exercice6.php" enctype="multipart/form-data">
+        <label for="fichier_csv">Choisissez un fichier CSV :</label>
+        <input type="file" name="fichier_csv" id="fichier_csv" accept=".csv" required>
+        <button type="submit">Importer</button>
+    </form>
+    <?php if (!empty($donnees)): ?>
+        <h2>Données importées :</h2>
+        <table border="1">
+            <?php foreach ($donnees as $ligne): ?>
+                <tr>
+                    <?php foreach ($ligne as $cellule): ?>
+                        <td><?= htmlspecialchars($cellule) ?></td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+
+    <!-- Exercice 7 -->
+    <h1>Panier d'achat</h1>
+    <form method="POST" action="exercice7.php">
+        <label for="produit">Sélectionnez un produit :</label>
+        <select name="produit[]">
+            <option value="Produit A">Produit A - 50 €</option>
+            <option value="Produit B">Produit B - 30 €</option>
+            <option value="Produit C">Produit C - 20 €</option>
+        </select>
+        <button type="submit">Ajouter au panier</button>
+    </form>
+    <h2>Total du panier : <?= $prix_total ?> €</h2>
+
+    <!-- Exercice 8 -->
+    <h1>Produits disponibles</h1>
+    <ul>
+        <?php foreach ($produits_disponibles as $produit): ?>
+            <li><?= $produit['nom'] ?> - <?= $produit['prix'] ?> €</li>
+        <?php endforeach; ?>
+    </ul>
+
+    <!-- Exercice 9 -->
+    <h1>Calculatrice</h1>
+    <form method="POST" action="exercice9.php">
+        <input type="number" name="num1" placeholder="Nombre 1" required>
+        <input type="number" name="num2" placeholder="Nombre 2" required>
+        <select name="operation" required>
+            <option value="addition">Addition</option>
+            <option value="soustraction">Soustraction</option>
+            <option value="multiplication">Multiplication</option>
+            <option value="division">Division</option>
+        </select>
+        <button type="submit" name="calcul">Calculer</button>
+    </form>
+    <?php if (isset($resultat)): ?>
+        <h2>Résultat : <?= $resultat ?></h2>
+    <?php endif; ?>
+
+    <!-- Exercice 10 -->
+    <h1>Traitement du formulaire</h1>
+    <form method="POST" action="exercice10.php">
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="text" name="prenom" placeholder="Prénom" required>
+        <input type="submit" value="Envoyer">
+    </form>
+    <?php if (isset($_POST['nom']) && isset($_POST['prenom'])): ?>
+        <h2>Bonjour, <?= htmlspecialchars($_POST['prenom']) ?> <?= htmlspecialchars($_POST['nom']) ?> !</h2>
+    <?php endif; ?>
+</body>
+</html>
